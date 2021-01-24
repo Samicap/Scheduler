@@ -4,7 +4,11 @@ import DayList from "components/DayList/DayList";
 import "components/appointment";
 import Appointment from "components/appointment";
 import axios from "axios";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
 export default function Application(props) {
   // const [day, setDay] = useState("Monday");// Initial value
@@ -20,15 +24,18 @@ export default function Application(props) {
 
   // const dailyAppointments = [];
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day); // where shoudl this be called?
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
+  
     return (
       <Appointment
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   });
