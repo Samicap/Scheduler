@@ -15,12 +15,10 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  const onAdd = () => transition(CREATE);
-
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
@@ -29,11 +27,11 @@ export default function Appointment(props) {
           // onDelete={action("onDelete")}
         />
       )}
-      { mode === CREATE && (
+      {mode === CREATE && (
         <Form
           name={"Sam"}
           interviewer={null}
-          interviewers={props.interviewers}
+          interviewers={[]}
           onCancel={back}
           // onSave={onSave}
         />
@@ -41,4 +39,3 @@ export default function Appointment(props) {
     </article>
   );
 }
-
