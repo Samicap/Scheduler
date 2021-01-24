@@ -32,16 +32,8 @@ export default function Application(props) {
       />
     );
   });
-  // let URL1 = "/api/days";
-  // let URL2 = "/api/appointments";
-  // let URL3 = "/api/interviewers";
-
-  // const promise1 = axios.get(URL1);
-  // const promise2 = axios.get(URL2);
-  // const promise3 = axios.get(URL3);
 
   useEffect(() => {
-    // Promise.all([promise1, promise2, promise3]).then((res) => {
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
