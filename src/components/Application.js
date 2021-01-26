@@ -24,11 +24,67 @@ export default function Application(props) {
 
   // const dailyAppointments = [];
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const interviewers = getInterviewersForDay(state, state.day); // where shoudl this be called?
+  // console.log("DAily APpt: ", JSON.stringify(dailyAppointments))
+  const interviewers = getInterviewersForDay(state, state.day); // Gets the list/array of interviewers appear on the form when passed to appointments component
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
+      .then((response) => {
+        // console.log("Axios response:" + JSON.stringify(response))
+        setState({
+          ...state,
+          appointments,
+        });
+
+        console.log(id, interview);
+      });
+  }
+
+  function cancelInterview(id) {
+    // need to
+
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
+      // need to update local state in memory
+      const appointment = {
+        ...state.appointments[id],
+        interview: null,
+      };
+      const appointments = {
+        // overwrites the old state with that id
+        ...state.appointments,
+        [id]: appointment,
+      };
+      console.log("Appointmnets", appointments);
+
+      setState({ ...state, appointments }); // appointment array of objects
+    });
+  }
+
+  function editAppointment(id, {interview}) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    return axios.put(`/api/appointments/${id}`)
+  }
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-  
+
     return (
       <Appointment
         key={appointment.id}
@@ -36,6 +92,8 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });

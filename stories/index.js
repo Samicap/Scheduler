@@ -182,7 +182,7 @@ storiesOf("Appointment", module)
       name="Stacy"
       interviewers={interviewers}
       interviewer={interviewers[2].id}
-      setInterviewer={(event) => action("setInterviewer")(interviewer.id)} // Should this be there?
+      setInterviewer={(event) => action("setInterviewer")(interviewer.id)} 
       onSave={action("onSave")}
       onCancel={action("onCancel")}
     />)
@@ -190,7 +190,7 @@ storiesOf("Appointment", module)
   .add("Create", () => (
     <Form 
     interviewers={interviewers}
-    setInterviewer={(event) => action("setInterviewer")(interviewer.id)} // Should this be there?
+    setInterviewer={(event) => action("setInterviewer")(interviewer.id)} 
     onSave={action("onSave")}
     onCancel={action("onCancel")}
   />

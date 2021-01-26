@@ -57,4 +57,22 @@ function getInterview(state, interview) {
   // }
 }
 
-export { getAppointmentsForDay, getInterview };
+function getInterviewersForDay(state, day) {
+  if (state.days === []) return [];
+
+  const daysArray = state.days.filter((element) => element.name === day); // [1, 2]
+
+  let keys = [];
+  if (daysArray[0] !== undefined) keys = daysArray[0].interviewers;
+
+  if (keys === []) return [];
+
+  let outputs = [];
+  for (let key of keys) {
+    outputs.push(state.interviewers[key.toString()]);
+  }
+
+  return outputs;
+}
+
+export { getAppointmentsForDay, getInterview, getInterviewersForDay };
