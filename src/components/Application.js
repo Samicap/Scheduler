@@ -70,17 +70,6 @@ export default function Application(props) {
     });
   }
 
-  function editAppointment(id, {interview}) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-    return axios.put(`/api/appointments/${id}`)
-  }
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);

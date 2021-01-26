@@ -14,7 +14,8 @@ export default function Appointment(props) {
   const CREATE = "CREATE";
   const SAVING = "SAVING";
   const CONFIRM = "CONFIRM";
-  const STATUS = "STATUS";
+  const DELETING = "DELETING";
+  const EDIT = "EDIT";
 
   function save(name, interviewer) {
     const interview = {
@@ -23,20 +24,15 @@ export default function Appointment(props) {
     };
     transition(SAVING);
 
-    props.bookInterview(props.id, interview) // returns a promise
-      .then(() => transition(SHOW))
-
+    props
+      .bookInterview(props.id, interview) // returns a promise
+      .then(() => transition(SHOW));
   }
 
-  function removeAppointment(id) { // What param do i put in here?
-    transition(STATUS)
-    console.log(props.id)
-    props.cancelInterview(props.id)
-      .then(() =>
-      transition(EMPTY)
-      )
+  function removeAppointment(id) {
+    transition(DELETING);
+    props.cancelInterview(props.id).then(() => transition(EMPTY));
   }
-  
 
 
   const { mode, transition, back } = useVisualMode(
@@ -51,13 +47,11 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer.name}
-          // onEdit={action("onEdit")}
+          onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
       )}
-      {mode === SAVING && (
-        <Status/>
-      )}
+      {mode === SAVING && <Status message="Saving" />}
       {mode === CREATE && (
         <Form
           name={""}
@@ -68,13 +62,19 @@ export default function Appointment(props) {
       )}
       {mode === CONFIRM && (
         <Confirm
-          onCancel={() => transition(SHOW)}  // Needs a transition to show? or back?
-          onConfirm={removeAppointment} // CAll tanisiton to status in function 
+          onCancel={() => transition(SHOW)} // Needs a transition to show? or back?
+          onConfirm={removeAppointment} // CAll tanisiton to status in function
         />
       )}
-      {mode === STATUS && (
-        <Status />
-      )}
+      {mode === DELETING && <Status message="Deleting" />}
+      {mode === EDIT && 
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.name}
+          interviewers={props.interviewers}
+          onCancel={back}
+          onSave={save}
+        />}
     </article>
   );
 }
