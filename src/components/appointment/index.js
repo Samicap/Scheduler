@@ -20,6 +20,7 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
+  console.log("Appointment props: ", JSON.stringify(props))
   function save(name, interviewer) {
     const interview = {
       student: name,

@@ -5,6 +5,16 @@ import InterviewerList from "components/InterviewListItem/InterviewerList";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
+
+  function validate() {  // Should this be in the save function?  Or does having it in the form auto call it? What about saving on button click?
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+
+    props.onSave(name, interviewer);
+  }
 
   const reset = function () {
     setName("");
@@ -16,9 +26,9 @@ export default function Form(props) {
     props.onCancel();
   };
 
-  const save = function () {
-    props.onSave(name, interviewer);
-  };
+  // const save = function () { // replaced by validate function
+  //   props.onSave(name, interviewer);
+  // };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -29,12 +39,14 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            onChange={(event) => setName(event.target.value)}
             value={name}
+            onChange={(event) => setName(event.target.value)}
             /*
           This must be a controlled component
         */
+            data-testid="student-name-input"
           />
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
           interviewers={props.interviewers}
@@ -47,7 +59,7 @@ export default function Form(props) {
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={save}>
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
