@@ -20,7 +20,7 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
-  console.log("Appointment props: ", JSON.stringify(props))
+  // console.log("Appointment props: ", JSON.stringify(props))
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -48,7 +48,7 @@ export default function Appointment(props) {
   );
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (

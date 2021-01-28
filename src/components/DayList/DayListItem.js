@@ -20,6 +20,7 @@ export default function DayListItem(props) {
 
   return (
     <li 
+      data-testid="day"// remove this
       className={dayClass}
       onClick={() => props.setDay(props.name)}
     >

@@ -75,7 +75,7 @@ function useApplicationData(initial) {
       };
 
       const newDays = [...state.days];
-      console.log("appoint: ", appointments);
+      // console.log("appoint: ", appointments);
       // Use the appt id to find the day that needs the spots to change
       for (let dayIndex in state.days) {
         const index = state.days[dayIndex].appointments.find((i) => id === i);
