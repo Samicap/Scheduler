@@ -30,3 +30,12 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screenshots
+
+!["Add an Interview"](https://github.com/Samicap/Scheduler/blob/master/docs/AddingAnInterview.png?raw=true)
+
+
+!["Cancelling and Appointment"](https://github.com/Samicap/Scheduler/blob/master/docs/CancelingAppointment.png?raw=true)
+
+!["Booked Interview with spots remaining"](https://github.com/Samicap/Scheduler/blob/master/docs/SpotsRemaining.png?raw=true)
