@@ -15,14 +15,3 @@ export default function DayList(props) {
   });
   return <ul>{dayTest2}</ul>;
 }
-
-// const DayList = () => (
-//   <ul>
-//     {
-//       props.days.map((day) => (
-//         <DayListItem
-//         />
-//       ))
-//     }
-//   </ul>
-// )

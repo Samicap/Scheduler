@@ -7,7 +7,7 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  function validate() {  // Should this be in the save function?  Or does having it in the form auto call it? What about saving on button click?
+  function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
       return;
@@ -25,10 +25,6 @@ export default function Form(props) {
     reset();
     props.onCancel();
   };
-
-  // const save = function () { // replaced by validate function
-  //   props.onSave(name, interviewer);
-  // };
 
   return (
     <main className="appointment__card appointment__card--create">

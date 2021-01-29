@@ -1,5 +1,14 @@
 # Interview Scheduler
 
+Scheduler is a student project used for learning React.  It has the following functions:
+1. Ability to see how many appointments are available per day on the home page, this auto updates as appointments are added.
+
+2. Ability to schedule an interview with different interviewers with an inputed student name.
+
+3. Error handling for failed saving and deleting
+
+This is a great project for learning how to communicate with servers and understand user interactions!
+
 ## Setup
 
 Install dependencies with `npm install`.
