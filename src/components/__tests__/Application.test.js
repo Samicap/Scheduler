@@ -48,7 +48,7 @@ describe("Application", () => {
 
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
-    act(() => fireEvent.click(getByText(appointment, "Save")));
+    fireEvent.click(getByText(appointment, "Save"));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
@@ -131,11 +131,8 @@ describe("Application", () => {
     expect(getByText(day, "Monday")).toBeInTheDocument();
   });
 
-  it("shows the save error when failing to save an appointment", () => {
-    axios.put.mockRejectedValueOnce();
-  });
-
   it("shows the save error when failing to save an appointment", async () => {
+    axios.put.mockRejectedValueOnce();
     const { container, debug } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
@@ -158,7 +155,7 @@ describe("Application", () => {
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
-    // This fails
+    axios.delete.mockRejectedValueOnce();
     const { container, debug } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
@@ -171,20 +168,16 @@ describe("Application", () => {
     ).find((appointment) => queryByText(appointment, "Archie Cohen"));
 
     fireEvent.click(queryByAltText(appointment, "Delete"));
-    // 4. Check that the confirmation message is shown.
+    // // 4. Check that the confirmation message is shown.
+
     expect(
       getByText(appointment, "Delete the appointment?")
     ).toBeInTheDocument();
-    // 5. Click the "Confirm" button on the confirmation.
-    const day2 = getAllByTestId(container, "day").find((day) =>
-      queryByText(day, "Monday")
-    );
+    // // 5. Click the "Confirm" button on the confirmation.
 
-    fireEvent.click(queryByText(appointment, "Confirm"));
+    fireEvent.click(getByText(appointment, "Confirm"));
 
     // expect(getByText(appointment, "Could not save appointment")).toBeInTheDocument();
-    await waitForElement(() =>
-      getByText(appointment, "Could not cancel appointment")
-    );
+    await waitForElement(() => queryByText(appointment, "Error"));
   });
 });

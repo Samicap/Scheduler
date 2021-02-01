@@ -77,7 +77,7 @@ export default function Appointment(props) {
       {mode === EDIT && (
         <Form
           name={props.interview.student}
-          interviewer={props.interview.interviewer.name}
+          interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}
@@ -88,7 +88,7 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_DELETE && (
         <Error message="Could not cancel appointment" onClose={back} />
-      )}
+        )}
     </article>
   );
 }
